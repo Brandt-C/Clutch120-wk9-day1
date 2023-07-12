@@ -2,8 +2,11 @@ import { Link } from "react-router-dom";
 import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
+import { useEffect } from "react";
 
-function MyNav() {
+function MyNav(props) {
+    useEffect(()=>{console.log('NAVbar component state has been rendered or re-rendered')});
+    console.log(props)
     return (
         <>
             <Navbar bg="dark" data-bs-theme="dark">
@@ -13,6 +16,7 @@ function MyNav() {
                         <Link className="navbar-brand" to="/shop">shop</Link>
                         <Link className="navbar-brand" to="/">home</Link>
                     </Nav>
+                    <span>{props.students[Math.floor(Math.random()*props.students.length)]}</span>
                 </Container>
             </Navbar>
         </>
