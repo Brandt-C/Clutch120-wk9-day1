@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 
-const Home = () => {
+const Home = (props) => {
     // let x = 'Friction plate';
     // console.log(x);
     // x = 'thrust bearing';
@@ -23,11 +23,31 @@ const Home = () => {
    }
    useEffect(()=>{console.log('HOME component state has been rendered or re-rendered')})
     
+   const changeStudentOrder = () => {
+    // let popped = props.students.pop();
+    // props.students.splice(0, 0, popped);
+
+    //make a copy of the state
+    let studentCopy = [...props.students]
+
+    // modify that copy
+    let popped = studentCopy.pop();
+    studentCopy.splice(0, 0, popped);
+
+    // set state to that copy
+    props.setStudents(studentCopy);
+    // check!!!
+    console.log(props.students);
+}
     return (
         <div>
             <h1>Welcome home, there's no place like it!</h1>
             <h2>{animal}</h2>
             <button className="btn btn-warning" onClick={changeAnimal}> Change the animal:</button>
+            {props.students.map((student, index) => {
+                return <h2 key={index}>{student}</h2>
+            })}
+            <button className="btn btn-dark" onClick={changeStudentOrder}> Change student order</button>
         </div>
     )
 }

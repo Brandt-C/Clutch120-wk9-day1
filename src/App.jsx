@@ -23,8 +23,8 @@ function App() {
     <>
       <MyNav students={students}/>
       <Routes>
-        <Route children path='/' element={<Home />} />
-        <Route children path='/shop' element={<Shop students={students} setStudents={setStudents} />} />
+        <Route children path='/' element={<Home students={students} setStudents={setStudents}/>} />
+        <Route children path='/shop' element={<Shop  />} />
       </Routes>
     </>
   )
