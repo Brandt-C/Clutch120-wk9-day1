@@ -18,7 +18,7 @@ const Shop = () => {
     // async/await
 
     const getMovieData = async () => {
-        let response = await axios.get('http://127.0.0.1:5000/api/movies');
+        let response = await axios.get('https://clutch-120-flask.onrender.com/api/movies');
         return response.status === 200 ? response.data : null
     }
     const loadMovieData = async () => {
@@ -36,7 +36,7 @@ const Shop = () => {
         let copyCart = { ...cart };
         // change the copy
         copyCart.size++;
-        copyCart.total += parseInt(movie.price);
+        copyCart.total += (Math.round(movie.price * 100) / 100);
         copyCart.movies[movie.id] ?
             copyCart.movies[movie.id].quantity++
             :

@@ -1,0 +1,12 @@
+h1 {
+    background-color: bisque;
+}
+
+.item-img {
+    max-width: 150px;
+}
+.quan {
+    color: black;
+    font-weight: 700;
+    font-size: x-large;
+}
