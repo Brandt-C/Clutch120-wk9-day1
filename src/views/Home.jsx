@@ -21,7 +21,7 @@ const Home = (props) => {
         setAnimal('Grizzly Bear')
     }
    }
-   useEffect(()=>{console.log('HOME component state has been rendered or re-rendered')})
+//    useEffect(()=>{console.log('HOME component state has been rendered or re-rendered')})
     
    const changeStudentOrder = () => {
     // let popped = props.students.pop();
@@ -37,7 +37,7 @@ const Home = (props) => {
     // set state to that copy
     props.setStudents(studentCopy);
     // check!!!
-    console.log(props.students);
+    // console.log(props.students);
 }
     return (
         <div>

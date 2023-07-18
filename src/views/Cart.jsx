@@ -20,7 +20,7 @@ const Cart = () => {
    }
    const increaseItem = id => {
     let copyCart = {...cart};
-    console.log(copyCart);
+    // console.log(copyCart);
     copyCart.size ++;
 
     copyCart.total += (Math.round(copyCart.movies[id].data.price * 100) / 100);
