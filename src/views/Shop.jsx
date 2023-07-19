@@ -4,9 +4,9 @@ import Card from 'react-bootstrap/Card';
 import ListGroup from 'react-bootstrap/ListGroup';
 import Button from 'react-bootstrap/Button';
 import { DataContext } from "../context/DataProvider";
-
-import { Link } from "react-router-dom";
 import ShopModal from "../components/ShopModal";
+import { useDatabase, useUser } from "reactfire";
+import { ref, set } from "firebase/database";
 
 
 const Shop = () => {
@@ -20,6 +20,9 @@ const Shop = () => {
     3. render on the page!
     */
     // async/await
+
+    const db = useDatabase();
+    const { data:user } = useUser();
 
     const getMovieData = async () => {
         let response = await axios.get('https://clutch-120-flask.onrender.com/api/movies');
@@ -46,9 +49,14 @@ const Shop = () => {
             :
             copyCart.movies[movie.id] = { data: movie, quantity: 1 };
         // console.log(copyCart);
+        if (user){
+            set(ref(db, 'carts/' + user.uid), copyCart);
+        }
         // set state
         setCart(copyCart);
     }
+
+
 
     return (
         <div>
@@ -58,8 +66,7 @@ const Shop = () => {
 
                     {/* {console.log(movies, typeof movies)} */}
                     {movies && movies.length > 0 ? movies.map((m, index) => {
-                        return <>
-                            <Card key={index} id={m.id} style={{ width: '13rem' }}>
+                        return <Card key={index} id={m.id} style={{ width: '13rem' }}>
                                 <Card.Img variant="top" src={m.img_url} />
                                 <Card.Body>
                                     <Card.Title>{m.title}</Card.Title>
@@ -74,7 +81,6 @@ const Shop = () => {
                                     <Button variant="success" onClick={() => addMovie(m)}>Add to cart</Button>
                                 </Card.Body>
                             </Card>
-                        </>
                     }) :
                         <Card>
                             <Card.Header>Quote</Card.Header>

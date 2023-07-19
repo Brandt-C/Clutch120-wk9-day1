@@ -3,10 +3,15 @@ import { DataContext } from "../context/DataProvider";
 import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
 import '../css/cart.css';
+import { useDatabase, useUser } from "reactfire";
+import { set, ref } from "firebase/database";
 
 
 const Cart = () => {
     const { cart, setCart } = useContext(DataContext);
+
+    const db = useDatabase();
+    const { data:user } = useUser();
     /*
     The plan:
     1. grab// modify cart ---X
@@ -16,6 +21,9 @@ const Cart = () => {
     5. decrement item
     */
    const clearCart = () => {
+    if (user){
+        set(ref(db, 'carts/' + user.uid), null);
+    }
     setCart({size:0, total:0, movies:{}});
    }
    const increaseItem = id => {
@@ -25,6 +33,9 @@ const Cart = () => {
 
     copyCart.total += (Math.round(copyCart.movies[id].data.price * 100) / 100);
     copyCart.movies[id].quantity ++;
+    if (user){
+        set(ref(db, 'carts/' + user.uid), copyCart);
+    }
     setCart(copyCart);
    }
    const decreaseItem = id => {
@@ -34,6 +45,9 @@ const Cart = () => {
     copyCart.movies[id].quantity > 1 ?
     copyCart.movies[id].quantity -- :
     delete copyCart.movies[id];
+    if (user){
+        set(ref(db, 'carts/' + user.uid), copyCart);
+    }
     setCart(copyCart);
    }
    const removeItem = id => {
@@ -41,6 +55,9 @@ const Cart = () => {
     copyCart.size -= copyCart.movies[id].quantity;
     copyCart.total -= copyCart.movies[id].quantity * (Math.round(copyCart.movies[id].data.price * 100) / 100);
     delete copyCart.movies[id];
+    if (user){
+        set(ref(db, 'carts/' + user.uid), copyCart);
+    }
     setCart(copyCart);
    }
 

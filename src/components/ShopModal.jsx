@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 import { useState } from 'react';
 
 function ShopModal(props) {
-    console.log(props);
+    // console.log(props);
 
     const [show, setShow] = useState(false);
 
