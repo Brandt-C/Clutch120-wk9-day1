@@ -85,7 +85,7 @@ const Cart = () => {
                 </Card>
             })}
             </div>
-
+            <Button variant="success" href="/checkout">Checkout</Button>
             <Button variant="danger" onClick={clearCart}>Clear Cart!</Button>
         </>
     )

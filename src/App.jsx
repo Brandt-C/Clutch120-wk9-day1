@@ -6,6 +6,7 @@ import Shop from './views/Shop';
 import MyNav from './components/MyNav';
 import { useState } from 'react';
 import Cart from './views/Cart';
+import Checkout from './views/Checkout';
 /*
 props-->  is an object that has input that a react function accepts
 
@@ -24,6 +25,7 @@ function App() {
         <Route children path='/' element={<Home students={students} setStudents={setStudents}/>} />
         <Route children path='/shop' element={<Shop  />} />
         <Route children path='/cart' element={<Cart  />} />
+        <Route children path='/checkout' element={<Checkout  />} />
       </Routes>
     </>
   )
