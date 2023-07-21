@@ -24,9 +24,11 @@ function MyNav() {
         let provider = new GoogleAuthProvider();
         let u = await signInWithPopup(auth, provider);
         console.log(u);
+        return u
     }
     const signout = async () => {
-        await signOut(auth).then(() => console.log('user has been signed out'));
+        await signOut(auth);
+        setCart({size:0, total:0, movies:{}})
     }
     /* Tasks for conditional nav auth handling:
     1. user is signed in--> name + signout button
@@ -46,10 +48,11 @@ function MyNav() {
               }).catch((error) => {
                 console.error(error);
               });
-        } else {
-            setCart({size:0, total:0, movies:{}})
-        }
-    },[user])
+        } 
+        // else {
+        //     setCart({size:0, total:0, movies:{}})
+        // }
+    },[user]);
 
 
     return (

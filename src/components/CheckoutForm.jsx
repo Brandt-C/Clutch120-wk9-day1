@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useState } from "react";
 import { useStripe, useElements, PaymentElement } from "@stripe/react-stripe-js";
 
 import '../css/stripe.css'
@@ -26,7 +26,7 @@ const CheckoutForm = () => {
         setShowPay(false); // disable form submission
         const data = await stripe.confirmPayment({
             elements,
-            redirect : 'if_required'
+            redirect: 'if_required'
         });
         console.log('pay intent received: ', data);
         // probably where we'll clear the cart
@@ -35,7 +35,7 @@ const CheckoutForm = () => {
             setErrorMessage(data['error']['message']);
             setShowForm('error');
         } else {
-            setShowForm(false);
+            setShowForm(false)
         }
     }
 
@@ -44,24 +44,23 @@ const CheckoutForm = () => {
 
             {
                 showForm === true ?
-                <form id="payment-form" onSubmit={handlePay}>
-                <PaymentElement id="payment-element"></PaymentElement>
-                <button disabled={ !showPay || !elements || !stripe} id="submit" >
-                <span id="button-text">
-                {showPay ? " Submit Payment" : 'Processing. . . '}
-                </span>
-                </button>
-                </form>
-                :
-                showForm === 'error' ?
-                <>
-                <h4>Something went wrong with processing your payment, please try again!</h4>
-                <h4>{errorMessage}</h4>
-                </>
-                :
-                <h2>Payment success, thanks for all the fish!!!</h2>
+                    <form id="payment-form" onSubmit={handlePay}>
+                        <PaymentElement id="payment-element"></PaymentElement>
+                        <button id="submit" disabled={!showPay || !elements || !stripe} >
+                            <span id="button-text">
+                                {showPay ? " Submit Payment" : 'Processing. . . '}
+                            </span>
+                        </button>
+                    </form>
+                    : showForm === 'error' ?
+                        <>
+                            <h4>Something went wrong with processing your payment, please try again!</h4>
+                            <h4>{errorMessage}</h4>
+                        </>
+                        :
+                        <h2>Payment success, thanks for all the fish!!!</h2>
             }
-      </div>
+        </div>
     )
 }
-export default CheckoutForm
+export default CheckoutForm;

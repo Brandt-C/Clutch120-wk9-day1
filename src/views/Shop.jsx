@@ -48,7 +48,7 @@ const Shop = () => {
             copyCart.movies[movie.id].quantity++
             :
             copyCart.movies[movie.id] = { data: movie, quantity: 1 };
-        // console.log(copyCart);
+        console.log(copyCart);
         if (user){
             set(ref(db, 'carts/' + user.uid), copyCart);
         }
