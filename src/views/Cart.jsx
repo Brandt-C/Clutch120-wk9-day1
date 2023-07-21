@@ -5,6 +5,7 @@ import Card from 'react-bootstrap/Card';
 import '../css/cart.css';
 import { useDatabase, useUser } from "reactfire";
 import { set, ref } from "firebase/database";
+import { Link } from "react-router-dom";
 
 
 const Cart = () => {
@@ -85,7 +86,7 @@ const Cart = () => {
                 </Card>
             })}
             </div>
-            <Button variant="success" href="/checkout">Checkout</Button>
+            <Link className="btn btn-success" to="/checkout">Checkout</Link>
             <Button variant="danger" onClick={clearCart}>Clear Cart!</Button>
         </>
     )

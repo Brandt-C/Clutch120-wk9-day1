@@ -14,11 +14,14 @@ const Checkout = () => {
     const {data:user} = useUser();
 
     useEffect(() => {
+        // if (!cart.size || cart.size === 0){
+        //     return
+        // }
         console.log(cart);
-        fetch('https://clutch-120-flask.onrender.com/pay/create-payment-intent', {
+        fetch('http://127.0.0.1:5000/pay/create-payment-intent', {
             method: "POST",
             headers: { "Content-Type": "application/json" },
-            body: JSON.stringify(cart),
+            body: JSON.stringify({'cart':cart, 'user': user}),
         })
             .then((res) => res.json())
             .then((data) => setClientSecret(data.clientSecret));

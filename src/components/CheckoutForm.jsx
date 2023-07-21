@@ -1,13 +1,14 @@
-import { useState } from "react";
+import { useState, useContext } from "react";
 import { useStripe, useElements, PaymentElement } from "@stripe/react-stripe-js";
 
 import '../css/stripe.css'
+import { DataContext } from "../context/DataProvider";
 
 
 const CheckoutForm = () => {
     const stripe = useStripe();
     const elements = useElements();
-
+    const { cart, setCart } = useContext(DataContext);
     /*
     The flow/process:
     1. create payment intent (starts with cart going to flask)
@@ -30,12 +31,16 @@ const CheckoutForm = () => {
         });
         console.log('pay intent received: ', data);
         // probably where we'll clear the cart
+        // if (data.paymentIntent.status === 'succeeded'){
+        //     setCart({size:0, total:0, movies:{}})
+        // }
         if (data['error']) {
             console.log(data['error']['code']);
             setErrorMessage(data['error']['message']);
             setShowForm('error');
         } else {
-            setShowForm(false)
+            setShowForm(false);
+            setCart({size:0, total:0, movies:{}});
         }
     }
 

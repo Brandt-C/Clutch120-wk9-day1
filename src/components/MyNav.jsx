@@ -14,6 +14,20 @@ import { get, ref, child } from "firebase/database";
 function MyNav() {
     // useEffect(()=>{console.log('NAVbar component state has been rendered or re-rendered')});
     const { cart, setCart } = useContext(DataContext);
+    const realTimeClean = (ob) => {
+        if (Array.isArray(ob.movies)){
+            let key = {};
+            for (let i = 0; i<ob.movies.length;i++){
+                // console.log(ob.movies[i], typeof ob.movies[i]);
+                if (typeof ob.movies[i] === 'object'){
+                    key[i] = ob.movies[i]
+                }
+            } ob.movies = key;
+            return ob
+            
+        }
+    }
+    
 
     const auth = useAuth();
     const { data:user } = useUser();
@@ -40,8 +54,8 @@ function MyNav() {
         if (user){
             get(child(ref(db), `carts/${user.uid}`)).then((snapshot) => {
                 if (snapshot.exists()) {
-                  console.log(snapshot.val());
-                  setCart(snapshot.val());
+                  console.log(realTimeClean(snapshot.val()));
+                  setCart(realTimeClean(snapshot.val()));
                 } else {
                   console.log("No data available");
                 }
