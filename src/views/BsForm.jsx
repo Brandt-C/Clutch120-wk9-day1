@@ -1,3 +1,4 @@
+import axios from "axios";
 import { useState } from "react";
 import { Button, Form } from "react-bootstrap";
 
@@ -12,11 +13,33 @@ const BsForm = () => {
 
 
     const handleSubmit = e => {
-        e.preventdefault();
-        // // const form = e.target;
-        // console.log(e.target[0].value);
-        // console.log(e.target[1].value);
-        // console.log(e.target[2].value);
+        e.preventDefault();
+        const form = e.target;
+        console.log(form);
+        vals['email']= e.target[0].value;
+        vals['pass'] = e.target[1].value;
+        vals['text'] = e.target[2].value;
+        console.log(vals);
+        axios.post('http://127.0.0.1:5000/api/echoaxios', JSON.stringify(vals), {
+            headers: { "Content-Type": "application/json" }
+        }
+        )
+        .then(function (response) {
+            console.log(response);
+          })
+          .catch(function (error) {
+            console.log(error);
+          });
+          fetch('http://127.0.0.1:5000/api/echofetch', {
+            method : 'POST',
+            headers : {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(vals)
+          })
+        .then((res) => res.json())
+        .then((data) => console.log(data))
+
 
     }
 
