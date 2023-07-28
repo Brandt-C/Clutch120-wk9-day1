@@ -11,6 +11,7 @@ import SimpleForms from './views/SimpleForms';
 import ContForms from './views/ContForms';
 import BsForm from './views/BsForm';
 import DemoForm from './views/DemoForm';
+import AdminLogin from './views/AdminLogin';
 /*
 props-->  is an object that has input that a react function accepts
 
@@ -34,6 +35,8 @@ function App() {
         <Route children path='/contforms' element={<ContForms  />} />
         <Route children path='/bsform' element={<BsForm />} />
         <Route children path='/demoform' element={<DemoForm />} />
+        <Route children path='/adminlogin' element={<AdminLogin />} />
+        
       </Routes>
     </>
   )
