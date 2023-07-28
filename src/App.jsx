@@ -10,6 +10,7 @@ import Checkout from './views/Checkout';
 import SimpleForms from './views/SimpleForms';
 import ContForms from './views/ContForms';
 import BsForm from './views/BsForm';
+import DemoForm from './views/DemoForm';
 /*
 props-->  is an object that has input that a react function accepts
 
@@ -32,6 +33,7 @@ function App() {
         <Route children path='/simpleforms' element={<SimpleForms  />} />
         <Route children path='/contforms' element={<ContForms  />} />
         <Route children path='/bsform' element={<BsForm />} />
+        <Route children path='/demoform' element={<DemoForm />} />
       </Routes>
     </>
   )
