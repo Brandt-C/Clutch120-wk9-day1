@@ -8,6 +8,8 @@ const AdminLogin = () => {
 
     const [userName, setUserName] = useState('');
     const [password, setPassword] = useState('');
+    const [token, setToken] = useState('');
+    const [check, setCheck] = useState('');
 
 
 
@@ -20,27 +22,36 @@ const AdminLogin = () => {
         vals['username']= e.target[0].value;
         vals['pass'] = e.target[1].value;
         console.log(vals);
-        axios.post('http://127.0.0.1:5000/api/adminlogin', JSON.stringify(vals), {
-            headers: { "Content-Type": "application/json" }
-        }
-        )
-        .then(function (response) {
-            console.log(response);
-          })
-          .catch(function (error) {
-            console.log(error);
-          });
-        //   fetch('http://127.0.0.1:5000/api/echofetch', {
-        //     method : 'POST',
-        //     headers : {
-        //         'Content-Type': 'application/json'
-        //     },
-        //     body: JSON.stringify(vals)
+        // axios.post('http://127.0.0.1:5000/api/adminlogin', JSON.stringify(vals), {
+        //     headers: { "Content-Type": "application/json" }
+        // }
+        // )
+        // .then(function (response) {
+        //     console.log(response);
         //   })
-        // .then((res) => res.json())
-        // .then((data) => console.log(data))
+        //   .catch(function (error) {
+        //     console.log(error);
+        //   });
+        fetch('http://127.0.0.1:5000/api/token', {
+            method : 'POST',
+            headers : {
+                Authorization : `Bearer ${btoa(e.target[0].value + ":" + e.target[1].value)}`
+            },
+            body: JSON.stringify(vals)
+          })
+        .then((res) => res.json())
+        .then((data) => setToken(data.token))
+    }
 
-
+    const checkToken = async () => {
+        fetch('http://127.0.0.1:5000/api/token-check', {
+            method : 'POST',
+            headers : {
+                Authorization : `Bearer ${token}`
+            }
+          })
+        .then((res) => res.json())
+        .then((data) => setCheck(data.message))
     }
 
     return (
@@ -58,6 +69,14 @@ const AdminLogin = () => {
                         Login
                     </Button>
                 </Form>
+                {token? 
+                <>
+                <Button variant="warning" onClick={checkToken}>check token!</Button>
+                <p>{token}</p>
+                </>:null}
+                    {check? <h2>{check}</h2>:null}
+
+
 
             </div>
 
